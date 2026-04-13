@@ -27,7 +27,7 @@ const BrandLogoCard = ({ brand, index }) => {
         <img
           src={brand.logo}
           alt={brand.name}
-          className="max-h-10 max-w-[100px] object-contain brightness-0 invert opacity-60 group-hover:opacity-100 transition-opacity duration-300"
+          className="max-h-10 max-w-[100px] object-contain opacity-80 group-hover:opacity-100 transition-opacity duration-300"
           onError={() => setImgError(true)}
         />
       ) : (

@@ -120,7 +120,7 @@ const BrandsPage = () => {
                 <img
                   src={client.logo}
                   alt={client.name}
-                  className="max-h-8 max-w-[90px] object-contain brightness-0 invert opacity-60 group-hover:opacity-100 transition-opacity duration-300"
+                  className="max-h-8 max-w-[90px] object-contain opacity-80 group-hover:opacity-100 transition-opacity duration-300"
                   onError={(e) => { e.target.style.display = 'none'; }}
                 />
                 <span className="text-[#A0A0A0] font-semibold text-xs tracking-[0.12em] uppercase group-hover:text-[#00F0FF] transition-colors duration-300 hidden" style={{display: 'none'}}>{client.name}</span>
