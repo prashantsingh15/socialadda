@@ -1,18 +1,43 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Eye, Users, Zap, MapPin, BarChart3, Shield, TrendingUp } from 'lucide-react';
 
 const brandLogos = [
-  { name: 'Flipkart', domain: 'flipkart.com' },
-  { name: 'Amazon', domain: 'amazon.com' },
-  { name: 'NVIDIA', domain: 'nvidia.com' },
-  { name: 'Gigabyte', domain: 'gigabyte.com' },
-  { name: 'Samsung', domain: 'samsung.com' },
-  { name: 'Lenskart', domain: 'lenskart.com' },
-  { name: 'UniPin', domain: 'unipin.com' },
-  { name: 'Zupee', domain: 'zupee.com' },
-  { name: 'Mars', domain: 'mars.com' },
-  { name: 'Snitch', domain: 'snitch.co.in' },
+  { name: 'Flipkart', logo: '/brands/flipkart_hq.png' },
+  { name: 'Amazon', logo: '/brands/amazon_hq.png' },
+  { name: 'NVIDIA', logo: '/brands/nvidia_hq.png' },
+  { name: 'Gigabyte', logo: '/brands/gigabyte_hq.png' },
+  { name: 'Samsung', logo: '/brands/samsung_hq.png' },
+  { name: 'Lenskart', logo: '/brands/lenskart_hq.png' },
+  { name: 'UniPin', logo: '/brands/unipin_hq.png' },
+  { name: 'Zupee', logo: '/brands/zupee_hq.png' },
+  { name: 'Mars', logo: '/brands/mars_hq.png' },
+  { name: 'Snitch', logo: '/brands/snitch_hq.png' },
 ];
+
+const BrandLogoCard = ({ brand, index }) => {
+  const [imgError, setImgError] = useState(false);
+
+  return (
+    <div
+      className="bg-[#12121A] border border-white/10 rounded-xl p-6 flex items-center justify-center h-24 hover:border-[#00F0FF]/40 hover:bg-[#1A1A24] transition-all duration-300 group"
+      data-testid={`brand-logo-${brand.name.toLowerCase()}`}
+    >
+      {!imgError ? (
+        <img
+          src={brand.logo}
+          alt={brand.name}
+          className="max-h-10 max-w-[100px] object-contain brightness-0 invert opacity-60 group-hover:opacity-100 transition-opacity duration-300"
+          onError={() => setImgError(true)}
+        />
+      ) : (
+        <span className="text-[#A0A0A0] font-semibold text-sm tracking-[0.15em] uppercase group-hover:text-[#00F0FF] transition-colors duration-300">
+          {brand.name}
+        </span>
+      )}
+    </div>
+  );
+};
 
 const HomePage = () => {
   const stats = [
@@ -152,21 +177,7 @@ const HomePage = () => {
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6">
             {brandLogos.map((brand, index) => (
-              <div
-                key={index}
-                className="bg-[#12121A] border border-white/10 rounded-xl p-6 flex items-center justify-center h-24 hover:border-[#00F0FF]/40 hover:bg-[#12121A]/80 transition-all duration-300 group"
-                data-testid={`brand-logo-${brand.name.toLowerCase()}`}
-              >
-                <img
-                  src={`https://logo.clearbit.com/${brand.domain}?size=120`}
-                  alt={brand.name}
-                  className="max-h-10 max-w-[100px] object-contain brightness-0 invert opacity-60 group-hover:opacity-100 transition-opacity duration-300"
-                  onError={(e) => {
-                    e.target.style.display = 'none';
-                    e.target.parentElement.innerHTML = `<span class="text-[#A0A0A0] font-semibold text-sm tracking-[0.15em] uppercase group-hover:text-[#00F0FF] transition-colors duration-300">${brand.name}</span>`;
-                  }}
-                />
-              </div>
+              <BrandLogoCard key={index} brand={brand} index={index} />
             ))}
           </div>
         </div>

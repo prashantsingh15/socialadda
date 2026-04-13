@@ -29,7 +29,18 @@ const BrandsPage = () => {
     { icon: Shield, value: 'Strong', label: 'Repeat Partnerships', color: '#8A2BE2' },
   ];
 
-  const clients = ['Flipkart', 'Amazon', 'NVIDIA', 'Gigabyte', 'Samsung', 'Lenskart', 'UniPin', 'Zupee', 'Mars', 'Snitch'];
+  const clients = [
+    { name: 'Flipkart', logo: '/brands/flipkart_hq.png' },
+    { name: 'Amazon', logo: '/brands/amazon_hq.png' },
+    { name: 'NVIDIA', logo: '/brands/nvidia_hq.png' },
+    { name: 'Gigabyte', logo: '/brands/gigabyte_hq.png' },
+    { name: 'Samsung', logo: '/brands/samsung_hq.png' },
+    { name: 'Lenskart', logo: '/brands/lenskart_hq.png' },
+    { name: 'UniPin', logo: '/brands/unipin_hq.png' },
+    { name: 'Zupee', logo: '/brands/zupee_hq.png' },
+    { name: 'Mars', logo: '/brands/mars_hq.png' },
+    { name: 'Snitch', logo: '/brands/snitch_hq.png' },
+  ];
 
   const whatWeMeasure = [
     'Reach & Impressions',
@@ -103,11 +114,17 @@ const BrandsPage = () => {
       <section className="py-20 bg-[#12121A]" data-testid="brands-clients">
         <div className="max-w-6xl mx-auto px-6 lg:px-8">
           <p className="text-xs uppercase tracking-[0.3em] text-[#00F0FF] text-center mb-10">Brands We've Worked With</p>
-          <div className="flex flex-wrap justify-center gap-x-10 gap-y-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-5">
             {clients.map((client, index) => (
-              <span key={index} className="text-[#A0A0A0] font-semibold text-sm tracking-[0.15em] uppercase hover:text-white transition-colors duration-300" data-testid={`brand-client-${index}`}>
-                {client}
-              </span>
+              <div key={index} className="bg-[#0B0B0F] border border-white/10 rounded-xl p-5 flex items-center justify-center h-20 hover:border-[#00F0FF]/40 transition-all duration-300 group" data-testid={`brand-client-${index}`}>
+                <img
+                  src={client.logo}
+                  alt={client.name}
+                  className="max-h-8 max-w-[90px] object-contain brightness-0 invert opacity-60 group-hover:opacity-100 transition-opacity duration-300"
+                  onError={(e) => { e.target.style.display = 'none'; }}
+                />
+                <span className="text-[#A0A0A0] font-semibold text-xs tracking-[0.12em] uppercase group-hover:text-[#00F0FF] transition-colors duration-300 hidden" style={{display: 'none'}}>{client.name}</span>
+              </div>
             ))}
           </div>
         </div>
