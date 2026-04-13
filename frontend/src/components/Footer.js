@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Mail, Phone, MapPin, Instagram, Twitter, Linkedin, Youtube } from 'lucide-react';
+import { Mail, Phone, MapPin, Instagram, Linkedin } from 'lucide-react';
 
 const Footer = () => {
   return (
@@ -37,11 +37,11 @@ const Footer = () => {
             <ul className="space-y-3">
               <li className="flex items-center text-[#A0A0A0] text-sm">
                 <Mail className="w-4 h-4 mr-3 text-[#00F0FF]" />
-                business@socialadda.org
+                <a href="mailto:business@socialadda.org" className="hover:text-[#00F0FF] transition-colors">business@socialadda.org</a>
               </li>
               <li className="flex items-center text-[#A0A0A0] text-sm">
                 <Phone className="w-4 h-4 mr-3 text-[#00F0FF]" />
-                +91 9211758155
+                <a href="tel:+919211758155" className="hover:text-[#00F0FF] transition-colors">+91 9211758155</a>
               </li>
               <li className="flex items-start text-[#A0A0A0] text-sm">
                 <MapPin className="w-4 h-4 mr-3 mt-0.5 text-[#00F0FF]" />
@@ -52,18 +52,31 @@ const Footer = () => {
 
           <div>
             <h4 className="text-white font-semibold mb-5 text-sm uppercase tracking-widest">Follow Us</h4>
-            <div className="flex space-x-4">
-              {[
-                { icon: Instagram, label: 'Instagram' },
-                { icon: Twitter, label: 'Twitter' },
-                { icon: Linkedin, label: 'LinkedIn' },
-                { icon: Youtube, label: 'YouTube' },
-              ].map(({ icon: Icon, label }) => (
-                <a key={label} href="#" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-[#A0A0A0] hover:border-[#00F0FF] hover:text-[#00F0FF] transition-all duration-300" aria-label={label} data-testid={`social-${label.toLowerCase()}`}>
-                  <Icon className="w-4 h-4" />
-                </a>
-              ))}
+            <div className="flex space-x-3 mb-6">
+              <a
+                href="https://www.instagram.com/the.social.adda"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-[#A0A0A0] hover:border-[#00F0FF] hover:text-[#00F0FF] transition-all duration-300"
+                aria-label="Instagram"
+                data-testid="social-instagram"
+              >
+                <Instagram className="w-4 h-4" />
+              </a>
+              <a
+                href="https://www.linkedin.com/company/social-adda-page/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-[#A0A0A0] hover:border-[#00F0FF] hover:text-[#00F0FF] transition-all duration-300"
+                aria-label="LinkedIn"
+                data-testid="social-linkedin"
+              >
+                <Linkedin className="w-4 h-4" />
+              </a>
             </div>
+            <p className="text-[#A0A0A0] text-xs leading-relaxed">
+              Follow us for the latest campaigns, creator stories, and industry insights.
+            </p>
           </div>
         </div>
 

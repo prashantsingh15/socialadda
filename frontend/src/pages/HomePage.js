@@ -1,12 +1,23 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight, Eye, Users, Zap, MapPin, BarChart3, Shield, TrendingUp } from 'lucide-react';
 
-const HomePage = () => {
-  const clients = ['Flipkart', 'Amazon', 'NVIDIA', 'Gigabyte', 'Samsung', 'Lenskart', 'UniPin', 'Zupee', 'Mars', 'Snitch'];
+const brandLogos = [
+  { name: 'Flipkart', domain: 'flipkart.com' },
+  { name: 'Amazon', domain: 'amazon.com' },
+  { name: 'NVIDIA', domain: 'nvidia.com' },
+  { name: 'Gigabyte', domain: 'gigabyte.com' },
+  { name: 'Samsung', domain: 'samsung.com' },
+  { name: 'Lenskart', domain: 'lenskart.com' },
+  { name: 'UniPin', domain: 'unipin.com' },
+  { name: 'Zupee', domain: 'zupee.com' },
+  { name: 'Mars', domain: 'mars.com' },
+  { name: 'Snitch', domain: 'snitch.co.in' },
+];
 
+const HomePage = () => {
   const stats = [
     { value: '800M+', label: 'Views Delivered', icon: Eye },
-    { value: '1000+', label: 'Influencer Collaborations', icon: Users },
+    { value: '1000+', label: 'Campaigns Executed', icon: Users },
     { value: '2000+', label: 'Verified Creators', icon: Zap },
     { value: '20+', label: 'States Covered', icon: MapPin },
   ];
@@ -70,26 +81,40 @@ const HomePage = () => {
             Creator-First Agency
           </p>
           <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tighter leading-[1.05] mb-8" data-testid="hero-headline">
-            Building Brands Through <br />
-            <span className="gradient-text">Authentic Creators</span> & <br />
-            <span className="text-[#00F0FF]">Measurable Impact</span>
+            India's Leading <br />
+            <span className="gradient-text">Creator Marketing</span> <br />
+            <span className="text-[#00F0FF]">Agency</span>
           </h1>
           <p className="text-lg text-[#A0A0A0] mb-12 max-w-2xl mx-auto leading-relaxed" data-testid="hero-subheadline">
-            We connect brands with the right creators, on the right platforms, with the right strategy — delivering results that matter.
+            Building brands through authentic creators & measurable impact. We connect brands with the right creators, on the right platforms, with the right strategy.
           </p>
+
+          {/* Hero Metrics */}
+          <div className="flex flex-wrap justify-center gap-8 mb-12">
+            {[
+              { value: '800M+', label: 'Views' },
+              { value: '1000+', label: 'Campaigns' },
+              { value: '2000+', label: 'Creators' },
+            ].map((stat, i) => (
+              <div key={i} className="text-center" data-testid={`hero-metric-${i}`}>
+                <p className="text-3xl sm:text-4xl font-bold text-[#00F0FF]">{stat.value}</p>
+                <p className="text-xs uppercase tracking-widest text-[#A0A0A0] mt-1">{stat.label}</p>
+              </div>
+            ))}
+          </div>
 
           <div className="flex flex-col sm:flex-row gap-5 justify-center items-center">
             <Link
               to="/brands"
               data-testid="hero-cta-brands"
-              className="bg-[#00F0FF] text-[#0B0B0F] font-bold py-4 px-8 rounded-full hover:bg-white transition-all duration-300 shadow-[0_0_20px_rgba(0,240,255,0.5)] flex items-center gap-2"
+              className="bg-[#00F0FF] text-[#0B0B0F] font-bold py-4 px-10 rounded-full hover:bg-white transition-all duration-300 shadow-[0_0_25px_rgba(0,240,255,0.5)] flex items-center gap-2 text-base"
             >
               Start a Campaign <ArrowRight className="w-5 h-5" />
             </Link>
             <Link
               to="/creators"
               data-testid="hero-cta-creators"
-              className="bg-transparent text-white border border-white/20 font-semibold py-4 px-8 rounded-full hover:border-[#8A2BE2] hover:text-[#8A2BE2] transition-all duration-300 flex items-center gap-2"
+              className="bg-transparent text-white border border-white/20 font-semibold py-4 px-10 rounded-full hover:border-[#8A2BE2] hover:text-[#8A2BE2] transition-all duration-300 flex items-center gap-2 text-base"
             >
               Join as Creator <ArrowRight className="w-5 h-5" />
             </Link>
@@ -116,15 +141,32 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* Clients */}
-      <section className="py-20" data-testid="clients-section">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <p className="text-xs uppercase tracking-[0.3em] text-[#A0A0A0] text-center mb-12">Brands We've Worked With</p>
-          <div className="flex flex-wrap justify-center gap-x-12 gap-y-6">
-            {clients.map((client, index) => (
-              <span key={index} className="text-[#A0A0A0] font-semibold text-base tracking-[0.15em] uppercase hover:text-[#00F0FF] transition-colors duration-300 cursor-default" data-testid={`client-${client.toLowerCase()}`}>
-                {client}
-              </span>
+      {/* Brand Logos Section */}
+      <section className="py-24 bg-[#0B0B0F]" data-testid="brand-logos-section">
+        <div className="max-w-6xl mx-auto px-6 lg:px-8">
+          <div className="text-center mb-14">
+            <p className="text-xs uppercase tracking-[0.3em] text-[#00F0FF] mb-4">Our Clients</p>
+            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-white">
+              Trusted by leading brands across gaming, tech, and digital ecosystems
+            </h2>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6">
+            {brandLogos.map((brand, index) => (
+              <div
+                key={index}
+                className="bg-[#12121A] border border-white/10 rounded-xl p-6 flex items-center justify-center h-24 hover:border-[#00F0FF]/40 hover:bg-[#12121A]/80 transition-all duration-300 group"
+                data-testid={`brand-logo-${brand.name.toLowerCase()}`}
+              >
+                <img
+                  src={`https://logo.clearbit.com/${brand.domain}?size=120`}
+                  alt={brand.name}
+                  className="max-h-10 max-w-[100px] object-contain brightness-0 invert opacity-60 group-hover:opacity-100 transition-opacity duration-300"
+                  onError={(e) => {
+                    e.target.style.display = 'none';
+                    e.target.parentElement.innerHTML = `<span class="text-[#A0A0A0] font-semibold text-sm tracking-[0.15em] uppercase group-hover:text-[#00F0FF] transition-colors duration-300">${brand.name}</span>`;
+                  }}
+                />
+              </div>
             ))}
           </div>
         </div>
@@ -136,7 +178,7 @@ const HomePage = () => {
           <div className="text-center mb-16">
             <p className="text-xs uppercase tracking-[0.3em] text-[#00F0FF] mb-4">What Sets Us Apart</p>
             <h2 className="text-4xl sm:text-5xl font-bold tracking-tight">Why <span className="gradient-text">Social Adda</span>?</h2>
-            <p className="text-[#A0A0A0] mt-4 max-w-2xl mx-auto">We combine human creativity with data precision to deliver campaigns that don't just reach audiences — they move them.</p>
+            <p className="text-[#A0A0A0] mt-4 max-w-2xl mx-auto text-sm">We combine human creativity with data precision to deliver campaigns that don't just reach audiences — they move them.</p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
@@ -173,7 +215,7 @@ const HomePage = () => {
           <h2 className="text-4xl sm:text-5xl font-bold tracking-tight mb-6">
             <span className="text-[#00F0FF]">2,000+</span> Verified Creators
           </h2>
-          <p className="text-[#A0A0A0] max-w-2xl mx-auto mb-12">
+          <p className="text-[#A0A0A0] max-w-2xl mx-auto mb-12 text-sm">
             Micro, Macro & Celebrity creators tailored to your budget & goals. Pan-India reach with hyper-local presence in Tier 2 & 3 cities through vernacular content.
           </p>
 
@@ -181,7 +223,7 @@ const HomePage = () => {
             {[
               { label: 'Diverse Tiers', desc: 'Micro, Macro & Celebrity' },
               { label: 'Pan-India + Regional', desc: '20+ States Covered' },
-              { label: 'Multi-Platform', desc: 'Instagram, YouTube, Shorts, LinkedIn' },
+              { label: 'Multi-Platform', desc: 'YouTube, Instagram, Shorts' },
               { label: 'Data-Driven', desc: 'Audience Relevance > Follower Count' },
             ].map((item, index) => (
               <div key={index} className="glass-card p-6 text-center" data-testid={`network-feature-${index}`}>
@@ -229,14 +271,14 @@ const HomePage = () => {
             <Link
               to="/contact"
               data-testid="final-cta-button"
-              className="bg-[#00F0FF] text-[#0B0B0F] font-bold py-4 px-8 rounded-full hover:bg-white transition-all duration-300 shadow-[0_0_20px_rgba(0,240,255,0.5)] inline-flex items-center gap-2 justify-center"
+              className="bg-[#00F0FF] text-[#0B0B0F] font-bold py-4 px-10 rounded-full hover:bg-white transition-all duration-300 shadow-[0_0_20px_rgba(0,240,255,0.5)] inline-flex items-center gap-2 justify-center text-base"
             >
               Get Started <ArrowRight className="w-5 h-5" />
             </Link>
             <Link
               to="/creators"
               data-testid="final-cta-creators"
-              className="text-white border border-white/20 font-semibold py-4 px-8 rounded-full hover:border-[#8A2BE2] hover:text-[#8A2BE2] transition-all duration-300 inline-flex items-center gap-2 justify-center"
+              className="text-white border border-white/20 font-semibold py-4 px-10 rounded-full hover:border-[#8A2BE2] hover:text-[#8A2BE2] transition-all duration-300 inline-flex items-center gap-2 justify-center text-base"
             >
               Join Our Network <ArrowRight className="w-5 h-5" />
             </Link>

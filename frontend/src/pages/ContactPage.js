@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
-import { Loader2, Mail, Phone, MapPin, MessageCircle, ArrowRight } from 'lucide-react';
+import { Loader2, Mail, Phone, MapPin, MessageCircle, ArrowRight, Instagram, Linkedin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -114,6 +114,33 @@ const ContactPage = () => {
                 <MessageCircle className="w-4 h-4" />
                 Chat on WhatsApp
               </a>
+
+              {/* Social Links */}
+              <div className="mt-8">
+                <h4 className="text-white font-semibold text-sm mb-4">Follow Us</h4>
+                <div className="flex space-x-3">
+                  <a
+                    href="https://www.instagram.com/the.social.adda"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-[#A0A0A0] hover:border-[#00F0FF] hover:text-[#00F0FF] transition-all duration-300"
+                    aria-label="Instagram"
+                    data-testid="contact-social-instagram"
+                  >
+                    <Instagram className="w-4 h-4" />
+                  </a>
+                  <a
+                    href="https://www.linkedin.com/company/social-adda-page/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-[#A0A0A0] hover:border-[#00F0FF] hover:text-[#00F0FF] transition-all duration-300"
+                    aria-label="LinkedIn"
+                    data-testid="contact-social-linkedin"
+                  >
+                    <Linkedin className="w-4 h-4" />
+                  </a>
+                </div>
+              </div>
             </div>
 
             {/* Contact Form - Right Side */}

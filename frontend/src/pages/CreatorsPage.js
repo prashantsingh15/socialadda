@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { Loader2, CheckCircle2, ArrowRight, Users, MapPin, BarChart3, Layers } from 'lucide-react';
+import { Loader2, CheckCircle2, ArrowRight, Users, MapPin, BarChart3, Layers, Instagram } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -113,6 +113,32 @@ const CreatorsPage = () => {
                 <p className="text-[#A0A0A0] text-sm">{benefit}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Instagram CTA */}
+      <section className="py-16 bg-[#0B0B0F] border-t border-white/5" data-testid="instagram-cta-section">
+        <div className="max-w-3xl mx-auto px-6 lg:px-8 text-center">
+          <div className="bg-[#12121A] border border-white/10 rounded-2xl p-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#833AB4] via-[#FD1D1D] to-[#FCAF45] flex items-center justify-center">
+                <Instagram className="w-6 h-6 text-white" />
+              </div>
+              <div className="text-left">
+                <p className="text-white font-semibold">Follow us on Instagram</p>
+                <p className="text-[#A0A0A0] text-sm">For updates, collabs & creator spotlights</p>
+              </div>
+            </div>
+            <a
+              href="https://www.instagram.com/the.social.adda"
+              target="_blank"
+              rel="noopener noreferrer"
+              data-testid="instagram-follow-button"
+              className="bg-[#00F0FF] text-[#0B0B0F] font-bold py-2.5 px-6 rounded-full text-sm hover:bg-white transition-all duration-300 whitespace-nowrap"
+            >
+              @the.social.adda
+            </a>
           </div>
         </div>
       </section>
