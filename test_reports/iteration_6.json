@@ -1,0 +1,62 @@
+{
+  "summary": "Verified GA4 tag G-YD0QS46B8 runtime behavior on production https://socialadda.org and https://www.socialadda.org. All 6 assertions from the review request PASSED. Tag is firing correctly; the 'no data received' status in GA4 admin is NOT a code bug and is attributable to (a) GA4 Data Stream URL mismatch (configured as https://www.socialadda.org but effective page_location is https://socialadda.org after 308 redirect) and/or (b) standard GA4 processing/reporting latency (up to 24-48h for a new/idle property).",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "verifications": {
+    "www_redirect_308": {
+      "status": "PASS",
+      "detail": "curl HEAD https://www.socialadda.org -> HTTP/2 308, location: https://socialadda.org/. Playwright navigation to www.socialadda.org resolved final URL to https://socialadda.org/."
+    },
+    "gtag_js_loads_with_correct_id": {
+      "status": "PASS",
+      "detail": "GET https://www.googletagmanager.com/gtag/js?id=G-YD0QS46B8 -> 200. Script tag present in DOM."
+    },
+    "collect_request_fires_204": {
+      "status": "PASS",
+      "detail": "Observed 2 POST requests to https://www.google-analytics.com/g/collect with tid=G-YD0QS46B8 (events: page_view and user_engagement). Response 204 No Content confirmed."
+    },
+    "window_gtag_exists": {
+      "status": "PASS",
+      "detail": "typeof window.gtag === 'function' evaluated true in browser context."
+    },
+    "dataLayer_has_config_entry": {
+      "status": "PASS",
+      "detail": "window.dataLayer contains entry ['config','G-YD0QS46B8'] (plus 'js', gtm.dom, gtm.load). dataLayer length = 4."
+    },
+    "page_location_dl_param": {
+      "status": "PASS (matches actual runtime URL, MISMATCH with GA4 Stream config)",
+      "detail": "dl param in /g/collect = https://socialadda.org/ (non-www). This is the true page_location after the 308. The GA4 Data Stream is configured for https://www.socialadda.org — this is the likely root cause of the 'Data collection isn't active' banner in GA4 admin."
+    }
+  },
+  "root_cause_analysis": {
+    "issue_reported": "GA4 Tag Assistant: 'Google tag G-YD0QS46B8 not found'; GA4 Data Stream: 'Data collection isn't active'.",
+    "actual_runtime_state": "GA4 tag IS installed, IS loading (gtag.js 200), IS firing page_view+user_engagement to /g/collect with correct tid=G-YD0QS46B8 receiving 204 responses. window.gtag is a function, dataLayer contains config entry. Everything on the client side is correct.",
+    "why_tag_assistant_reports_not_found": "Google Tag Assistant frequently reports 'not found' when accessed via a URL that redirects (www -> apex). Tag Assistant loads the URL the user entered and may not follow cross-host 308 redirects reliably when scanning for tags — resulting in a false 'not found' for www.socialadda.org. When Tag Assistant is pointed at https://socialadda.org (the post-redirect canonical URL), the tag will be detected.",
+    "why_data_stream_shows_inactive": "Two contributing factors: (1) GA4 Data Stream URL is configured as https://www.socialadda.org, but the actual page_location (dl param) being reported is https://socialadda.org/ due to the 308 redirect. GA4 still ingests hits (tid match is what routes data), but the admin 'Data collection isn't active' banner is time-based and only clears after data has been received & processed — up to 24-48h for new/low-traffic properties. (2) Reporting latency: GA4 Realtime typically shows hits within seconds, but the Data Stream health indicator uses processed data (delayed).",
+    "recommended_mitigation": [
+      "Update the GA4 Data Stream URL in GA4 admin from https://www.socialadda.org to https://socialadda.org to match the canonical (post-redirect) hostname. This is a config change in GA4, NOT a code change.",
+      "Alternatively, invert the redirect (apex -> www) if the brand prefers www as canonical — but the code fix is unnecessary; current setup is working.",
+      "Verify in GA4 > Reports > Realtime that events appear (they should within ~30s of a live visit).",
+      "Wait 24-48h for the Data Stream health banner to update; it typically self-clears once processed events accumulate.",
+      "In Tag Assistant, test against https://socialadda.org (not www) to get an accurate detection."
+    ]
+  },
+  "test_report_links": [],
+  "action_items": [
+    "NO CODE CHANGES REQUIRED. The GA4 tag is installed and firing correctly.",
+    "Non-code action for site owner: Update GA4 Data Stream URL to https://socialadda.org (apex) OR flip redirect direction to apex->www. Then wait ~24h."
+  ],
+  "critical_code_review_comments": [
+    "GA4 gtag snippet in /app/frontend/public/index.html is correctly implemented (script src + inline config with G-YD0QS46B8). No changes needed."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A (not requested)", "frontend": "100% (6/6 GA4 verification checks passed)"},
+  "seed_data_creation": "None",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "GA4 tag on socialadda.org is confirmed working via network capture. tid=G-YD0QS46B8, /g/collect returns 204, dl=https://socialadda.org/. The GA4 admin 'not active' status is due to Stream URL mismatch (www vs apex) and processing delay, not a code issue. www.socialadda.org 308-redirects to socialadda.org — confirmed via both curl and Playwright."
+}
