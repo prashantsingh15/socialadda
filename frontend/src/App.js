@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import '@/App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import ReactGA from 'react-ga4';
 import Lenis from '@studio-freight/lenis';
 
 import HomePage from '@/pages/HomePage';
@@ -14,13 +13,8 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import WhatsAppFloat from '@/components/WhatsAppFloat';
 
-const GA_MEASUREMENT_ID = process.env.REACT_APP_GA_MEASUREMENT_ID || 'G-XXXXXXXXXX';
-
 function App() {
   useEffect(() => {
-    ReactGA.initialize(GA_MEASUREMENT_ID);
-    ReactGA.send({ hitType: 'pageview', page: window.location.pathname });
-
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
