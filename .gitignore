@@ -18,6 +18,7 @@ node_modules/
 
 # Testing
 /coverage
+test_reports/
 
 # Next.js
 /.next/
@@ -31,7 +32,10 @@ dist/
 dist
 
 # Environment files (comprehensive coverage)
-
+.env
+*.env
+.env.*
+!.env.example
 *token.json*
 *credentials.json*
 

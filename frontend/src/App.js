@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import '@/App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Lenis from '@studio-freight/lenis';
@@ -14,6 +14,9 @@ import Footer from '@/components/Footer';
 import WhatsAppFloat from '@/components/WhatsAppFloat';
 
 function App() {
+  const lenisRef = useRef(null);
+  const rafRef = useRef(null);
+
   useEffect(() => {
     const lenis = new Lenis({
       duration: 1.2,
@@ -21,15 +24,17 @@ function App() {
       orientation: 'vertical',
       smoothWheel: true,
     });
+    lenisRef.current = lenis;
 
     function raf(time) {
       lenis.raf(time);
-      requestAnimationFrame(raf);
+      rafRef.current = requestAnimationFrame(raf);
     }
 
-    requestAnimationFrame(raf);
+    rafRef.current = requestAnimationFrame(raf);
 
     return () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
       lenis.destroy();
     };
   }, []);
