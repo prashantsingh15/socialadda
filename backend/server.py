@@ -15,10 +15,10 @@ import asyncio
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
 
-# MongoDB connection
-mongo_url = os.environ['MONGO_URL']
-client = AsyncIOMotorClient(mongo_url)
-db = client[os.environ['DB_NAME']]
+# MongoDB connection (Disabled - not using database as per client requirement)
+# mongo_url = os.environ['MONGO_URL']
+# client = AsyncIOMotorClient(mongo_url)
+# db = client[os.environ['DB_NAME']]
 
 # Resend configuration
 resend.api_key = os.environ.get('RESEND_API_KEY')
@@ -142,9 +142,9 @@ async def submit_contact_form(input: ContactFormCreate):
         doc = contact_obj.model_dump()
         doc['timestamp'] = doc['timestamp'].isoformat()
         
-        # Save to MongoDB
-        await db.contact_submissions.insert_one(doc)
-        logger.info(f"Contact form saved to database: {contact_obj.id}")
+        # Save to MongoDB (Disabled - not using database)
+        # await db.contact_submissions.insert_one(doc)
+        # logger.info(f"Contact form saved to database: {contact_obj.id}")
         
         # Prepare email notification
         html_content = f"""
@@ -191,9 +191,9 @@ async def submit_creator_onboarding(input: CreatorOnboardingCreate):
         doc = creator_obj.model_dump()
         doc['timestamp'] = doc['timestamp'].isoformat()
         
-        # Save to MongoDB
-        await db.creator_onboarding.insert_one(doc)
-        logger.info(f"Creator onboarding saved to database: {creator_obj.id}")
+        # Save to MongoDB (Disabled - not using database)
+        # await db.creator_onboarding.insert_one(doc)
+        # logger.info(f"Creator onboarding saved to database: {creator_obj.id}")
         
         # Prepare email notification
         html_content = f"""
@@ -241,9 +241,9 @@ async def submit_brand_lead(input: BrandLeadCreate):
         doc = lead_obj.model_dump()
         doc['timestamp'] = doc['timestamp'].isoformat()
         
-        # Save to MongoDB
-        await db.brand_leads.insert_one(doc)
-        logger.info(f"Brand lead saved to database: {lead_obj.id}")
+        # Save to MongoDB (Disabled - not using database)
+        # await db.brand_leads.insert_one(doc)
+        # logger.info(f"Brand lead saved to database: {lead_obj.id}")
         
         # Prepare email notification
         html_content = f"""
@@ -281,41 +281,35 @@ async def submit_brand_lead(input: BrandLeadCreate):
 
 @api_router.get("/contact-submissions", response_model=List[ContactFormSubmission])
 async def get_contact_submissions():
-    """Get all contact form submissions"""
-    submissions = await db.contact_submissions.find({}, {"_id": 0}).to_list(1000)
-    
-    # Convert ISO string timestamps back to datetime objects
-    for sub in submissions:
-        if isinstance(sub['timestamp'], str):
-            sub['timestamp'] = datetime.fromisoformat(sub['timestamp'])
-    
-    return submissions
+    """Get all contact form submissions (Database disabled)"""
+    # submissions = await db.contact_submissions.find({}, {"_id": 0}).to_list(1000)
+    # for sub in submissions:
+    #     if isinstance(sub['timestamp'], str):
+    #         sub['timestamp'] = datetime.fromisoformat(sub['timestamp'])
+    # return submissions
+    return []
 
 
 @api_router.get("/creator-submissions", response_model=List[CreatorOnboardingSubmission])
 async def get_creator_submissions():
-    """Get all creator onboarding submissions"""
-    submissions = await db.creator_onboarding.find({}, {"_id": 0}).to_list(1000)
-    
-    # Convert ISO string timestamps back to datetime objects
-    for sub in submissions:
-        if isinstance(sub['timestamp'], str):
-            sub['timestamp'] = datetime.fromisoformat(sub['timestamp'])
-    
-    return submissions
+    """Get all creator onboarding submissions (Database disabled)"""
+    # submissions = await db.creator_onboarding.find({}, {"_id": 0}).to_list(1000)
+    # for sub in submissions:
+    #     if isinstance(sub['timestamp'], str):
+    #         sub['timestamp'] = datetime.fromisoformat(sub['timestamp'])
+    # return submissions
+    return []
 
 
 @api_router.get("/brand-leads", response_model=List[BrandLeadSubmission])
 async def get_brand_leads():
-    """Get all brand lead submissions"""
-    submissions = await db.brand_leads.find({}, {"_id": 0}).to_list(1000)
-    
-    # Convert ISO string timestamps back to datetime objects
-    for sub in submissions:
-        if isinstance(sub['timestamp'], str):
-            sub['timestamp'] = datetime.fromisoformat(sub['timestamp'])
-    
-    return submissions
+    """Get all brand lead submissions (Database disabled)"""
+    # submissions = await db.brand_leads.find({}, {"_id": 0}).to_list(1000)
+    # for sub in submissions:
+    #     if isinstance(sub['timestamp'], str):
+    #         sub['timestamp'] = datetime.fromisoformat(sub['timestamp'])
+    # return submissions
+    return []
 
 
 # Include the router in the main app
@@ -330,6 +324,6 @@ app.add_middleware(
 )
 
 
-@app.on_event("shutdown")
-async def shutdown_db_client():
-    client.close()
+# @app.on_event("shutdown")
+# async def shutdown_db_client():
+#     client.close()
