@@ -9,7 +9,7 @@ import { toast } from 'sonner';
 import { brandLogos, brandMetrics, contentHighlights, measureMetrics } from '@/data/constants';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const API = BACKEND_URL ? `${BACKEND_URL}/api` : '/api';
+const API = `${BACKEND_URL}/api`;
 const iconMap = { Eye, Users, TrendingUp, Shield };
 const INITIAL_FORM = { company_name: '', contact_name: '', email: '', phone: '', campaign_goal: '', budget_range: '' };
 

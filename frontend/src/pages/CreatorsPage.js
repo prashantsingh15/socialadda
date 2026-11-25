@@ -8,7 +8,7 @@ import { toast } from 'sonner';
 import { networkStats, creatorBenefits } from '@/data/constants';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const API = BACKEND_URL ? `${BACKEND_URL}/api` : '/api';
+const API = `${BACKEND_URL}/api`;
 const iconMap = { Users, MapPin, Layers, BarChart3 };
 
 const INITIAL_FORM = { name: '', email: '', platform: '', channel_url: '', subscribers: '', engagement_rate: '', niche: '' };
